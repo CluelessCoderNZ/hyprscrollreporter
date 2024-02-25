@@ -93,7 +93,7 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
 
     return {
         "HyprScrollReporter", 
-        "A simple plugin that reports the current workspace transition percentage.", 
+        "A simple plugin that reports the current workspace transition offset.", 
         "Connor Macdonald <kiwiconnor@proton.me>", 
         "0.1"
     };
