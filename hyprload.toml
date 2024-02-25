@@ -1,0 +1,10 @@
+[hyprscrollreporter]
+description = "A simple plugin that reports the current workspace transition offset."
+version = "0.1"
+author = "Connor Macdonald <kiwiconnor@proton.me>"
+
+[hyprscrollreporter.build]
+output = "hyprscrollreporter.so"
+steps = [
+    "make all",
+]
