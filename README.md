@@ -1,7 +1,7 @@
 # Hyprscrollreporter
 
 + Simple utility plugin extends hyprland to output its current workspace animation offset via IPC. Animation offsets are
-the sliding annimation you see when transitioning between workspaces, also for touchpad gestures. 
+the sliding animation you see when transitioning between workspaces, also for touchpad gestures. 
 + By exporting this value you can allow other utilities to track alongside the animation in time. In particular a scrolling wallpaper I am developing.
 
 ## Event `workspaceoffset`
