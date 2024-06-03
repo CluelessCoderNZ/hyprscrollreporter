@@ -75,6 +75,7 @@ void onNewTransitionValue(std::shared_ptr<CMonitor> monitor, MonitorTransition* 
 }
 
 void onRenderStage(eRenderStage stage) {
+    printEvent(std::format("STAGE: {}!", (int)stage));
     if (stage != RENDER_PRE_WINDOWS)
         return;
     
@@ -99,7 +100,7 @@ void onRenderStage(eRenderStage stage) {
 
 APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
     PHANDLE = handle;
-
+    printEvent("INIT!");
     HyprlandAPI::registerCallbackDynamic(PHANDLE, "render", [&](void* self, SCallbackInfo& info, std::any data) { onRenderStage(std::any_cast<eRenderStage>(data)); });
 
     return {
