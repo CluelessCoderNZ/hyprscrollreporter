@@ -40,10 +40,10 @@ bool transitionEqual(MonitorTransition* a, MonitorTransition* b) {
 }
 
 bool getCurrentTransition(std::shared_ptr<CMonitor> monitor, MonitorTransition* transition) {
-    CWorkspace* active = g_pCompositor->getWorkspaceByID(monitor->activeWorkspace);
+    PHLWORKSPACE active = monitor->activeWorkspace;
     if (active == nullptr) return false;
     
-    Vector2D offset = active->m_vRenderOffset.vec();
+    Vector2D offset = active->m_vRenderOffset.value();
 
     transition->previous_workspace = active->m_sPrevWorkspace.iID;
     transition->active_workspace = monitor->activeWorkspace;
