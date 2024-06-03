@@ -46,7 +46,7 @@ bool getCurrentTransition(std::shared_ptr<CMonitor> monitor, MonitorTransition* 
     Vector2D offset = active->m_vRenderOffset.value();
 
     transition->previous_workspace = active->m_sPrevWorkspace.iID;
-    transition->active_workspace = monitor->activeWorkspace;
+    transition->active_workspace = active->m_iID;
     transition->unit_offset.x = offset.x / monitor->vecPixelSize.x;
     transition->unit_offset.y = offset.y / monitor->vecPixelSize.y;
 
