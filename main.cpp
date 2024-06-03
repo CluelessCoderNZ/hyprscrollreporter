@@ -53,12 +53,6 @@ bool getCurrentTransition(std::shared_ptr<CMonitor> monitor, MonitorTransition* 
     return true;
 }
 
-void printEvent(std::string message) {
-    SHyprIPCEvent event;
-    event.event = message;
-    g_pEventManager->postEvent(event);
-}
-
 void onNewTransitionValue(std::shared_ptr<CMonitor> monitor, MonitorTransition* transition) {
     SHyprIPCEvent event;
     event.event = "workspaceoffset";
@@ -75,22 +69,17 @@ void onNewTransitionValue(std::shared_ptr<CMonitor> monitor, MonitorTransition* 
 }
 
 void onRenderStage(eRenderStage stage) {
-    printEvent(std::format("STAGE: {}!", (int)stage));
     if (stage != RENDER_PRE_WINDOWS)
         return;
     
-    printEvent("RENDER!");
     
     for (auto& monitor : g_pCompositor->m_vMonitors) {
-        printEvent(std::format("Monitor: {}", monitor->ID));
         MonitorTransition transition;
         if (!getCurrentTransition(monitor, &transition)) continue;
 
-        printEvent("Transition!");
 
         if(!g_lastTransition.contains(monitor->ID) 
             || !transitionEqual(&g_lastTransition[monitor->ID], &transition)) {
-            printEvent("NEW ONE!");
             g_lastTransition[monitor->ID] = transition;
             onNewTransitionValue(monitor, &transition);
         }
@@ -100,8 +89,8 @@ void onRenderStage(eRenderStage stage) {
 
 APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
     PHANDLE = handle;
-    printEvent("INIT!");
-    HyprlandAPI::registerCallbackDynamic(PHANDLE, "render", [&](void* self, SCallbackInfo& info, std::any data) { onRenderStage(std::any_cast<eRenderStage>(data)); });
+
+    static auto P = HyprlandAPI::registerCallbackDynamic(PHANDLE, "render", [&](void* self, SCallbackInfo& info, std::any data) { onRenderStage(std::any_cast<eRenderStage>(data)); });
 
     return {
         "HyprScrollReporter", 
