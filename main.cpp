@@ -19,7 +19,6 @@
 
 inline HANDLE PHANDLE = nullptr;
 
-
 APICALL EXPORT std::string PLUGIN_API_VERSION() {
     return HYPRLAND_API_VERSION;
 }
@@ -39,7 +38,7 @@ bool transitionEqual(MonitorTransition* a, MonitorTransition* b) {
         && b->unit_offset.y == b->unit_offset.y;
 }
 
-bool getCurrentTransition(std::shared_ptr<CMonitor> monitor, MonitorTransition* transition) {
+bool getCurrentTransition(Hyprutils::Memory::CSharedPointer<CMonitor> monitor, MonitorTransition* transition) {
     PHLWORKSPACE active = monitor->activeWorkspace;
     if (active == nullptr) return false;
     
@@ -53,7 +52,7 @@ bool getCurrentTransition(std::shared_ptr<CMonitor> monitor, MonitorTransition* 
     return true;
 }
 
-void onNewTransitionValue(std::shared_ptr<CMonitor> monitor, MonitorTransition* transition) {
+void onNewTransitionValue(Hyprutils::Memory::CSharedPointer<CMonitor> monitor, MonitorTransition* transition) {
     SHyprIPCEvent event;
     event.event = "workspaceoffset";
     event.data = std::format("{},{},{},{},{:.6f},{:.6f}",
